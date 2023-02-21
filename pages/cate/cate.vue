@@ -1,5 +1,7 @@
 <template>
   <view>
+    <!-- 搜索区域 -->
+    <my-search></my-search>
     <view class="scroll-view-container">
       <!-- 左侧滚动的区域 -->
       <scroll-view class="left-scroll-view" scroll-y="" :style="{ height: `${wh}px` }">
@@ -15,12 +17,12 @@
           <view class="cate-lv2-title">/ {{ item2.cat_name }} /</view>
           <!-- 三级分类 -->
           <view class="cate-lv3">
-            <view @click="gotoGoodsList(item3)" class="cate-lv3-item" v-for="(item3,index3) of item2.children" :key="index3">
+            <view @click="gotoGoodsList(item3)" class="cate-lv3-item" v-for="(item3, index3) of item2.children" :key="index3">
               <image :src="item3.cat_icon"></image>
-              <text>{{item3.cat_name}}</text>
+              <text>{{ item3.cat_name }}</text>
             </view>
           </view>
-        </vie>
+        </view>
       </scroll-view>
     </view>
   </view>
@@ -34,7 +36,7 @@ export default {
       wh: 0, // 窗口的可用高度
       cateList: [], // 一级分类数据列表
       cateLevel2: [], // 二级分类数据列表
-      scrollTop: [], // 距离顶部距离
+      scrollTop: [] // 距离顶部距离
     };
   },
   onLoad() {
@@ -54,7 +56,7 @@ export default {
       this.cateList = data.message;
       // 二级分类
       this.cateLevel2 = this.cateList[this.active].children;
-      console.log(data);
+      // console.log(data);
     },
     onChange(index) {
       // 切换一级分类的active
@@ -63,13 +65,13 @@ export default {
       this.cateLevel2 = this.cateList[index].children;
       // 让右侧滚动条回到顶部
       // 如果值不变 是不会触发scroll-top视图更新的
-      this.scrollTop =  this.scrollTop ? 0 : 1
+      this.scrollTop = this.scrollTop ? 0 : 1;
     },
     // 点击三级分类跳转商品详情
     gotoGoodsList(item3) {
       uni.navigateTo({
-        url:`/subpkg/goods_list/goods_list?cid=${item3.cat_id}`
-      })
+        url: `/subpkg/goods_list/goods_list?cid=${item3.cat_id}`
+      });
     }
   }
 };
@@ -110,20 +112,20 @@ export default {
   .cate-lv3 {
     display: flex;
     flex-wrap: wrap;
-     .cate-lv3-item {
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       width: 33.33%;
-       margin-bottom: 10px;
-       image {
-         width: 60px;
-         height: 60px;
-       }
-       text {
-         font-size: 12px;
-       }
-     }
+    .cate-lv3-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 33.33%;
+      margin-bottom: 10px;
+      image {
+        width: 60px;
+        height: 60px;
+      }
+      text {
+        font-size: 12px;
+      }
+    }
   }
 }
 </style>
