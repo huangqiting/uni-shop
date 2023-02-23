@@ -143,11 +143,26 @@ exports.default = void 0;
 //
 //
 //
-//
-//
 var _default = {
   data: function data() {
-    return {};
+    return {
+      // 请求参数对象
+      queryObj: {
+        // 查询关键词
+        query: '',
+        // 商品分类Id
+        cid: '',
+        // 页码值
+        pagenum: 1,
+        // 每页显示多少条数据
+        pagesize: 10
+      }
+    };
+  },
+  onLoad: function onLoad(options) {
+    // 将页面参数转存到 this.queryObj 对象中
+    this.queryObj.cid = options.cid || '';
+    this.queryObj.query = options.query || '';
   }
 };
 exports.default = _default;
