@@ -1,5 +1,5 @@
 <template>
-  <view>goods_list</view>
+  <view>goods_list666</view>
 </template>
 
 <script>
