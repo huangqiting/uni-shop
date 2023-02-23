@@ -1,7 +1,7 @@
 <template>
-  <view class="my-search-container">
+  <view class="my-search-container" :style="{ 'background-color': bgcolor }">
     <!-- 使用 view 组件模拟 input 输入框的样式 -->
-    <view class="my-search-box">
+    <view @click="$emit('click')" class="my-search-box" :style="{ 'border-radius': `${radius}px` }">
       <uni-icons type="search" size="17"></uni-icons>
       <text class="placeholder">搜索</text>
     </view>
@@ -11,6 +11,16 @@
 <script>
 export default {
   name: 'my-search',
+  props: {
+    bgcolor: {
+      type: String,
+      default: '#c00000'
+    },
+    radius: {
+      type: String,
+      default: '18' // px
+    }
+  },
   data() {
     return {};
   }
@@ -19,7 +29,6 @@ export default {
 
 <style lang="scss">
 .my-search-container {
-  background-color: #c00000;
   height: 50px;
   padding: 0 10px;
   display: flex;
@@ -28,7 +37,6 @@ export default {
 .my-search-box {
   height: 36px;
   background-color: #fff;
-  border-radius: 15px;
   width: 100%;
   display: flex;
   justify-content: center;

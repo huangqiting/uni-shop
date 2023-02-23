@@ -1,7 +1,7 @@
 <template>
   <view>
     <!-- 搜索区域 -->
-    <my-search></my-search>
+    <view class="search-box"><my-search @click="gotoSearch"></my-search></view>
     <!-- 轮播图区域 -->
     <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
       <swiper-item v-for="(item, index) in swiperList" :key="index">
@@ -88,6 +88,13 @@ export default {
       const { data } = await uni.$http.get('/api/public/v1/home/catitems');
       if (data.meta.status !== 200) return uni.$showMsg('分类列表获取失败！');
       this.navList = data.message;
+    },
+
+    // 跳转到分包的搜索页面
+    gotoSearch() {
+      uni.navigateTo({
+        url: '/subpkg/search/search'
+      });
     }
   }
 };
@@ -129,5 +136,13 @@ image {
 .floor-img-box {
   display: flex;
   padding: 10rpx;
+}
+.search-box {
+  // 设置定位效果为“吸顶”
+  position: sticky;
+  // 吸顶的“位置”
+  top: 0;
+  // 提高层级，防止被轮播图覆盖
+  z-index: 999;
 }
 </style>

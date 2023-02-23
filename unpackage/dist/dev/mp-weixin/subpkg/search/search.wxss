@@ -24,22 +24,46 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.my-search-container {
-  height: 50px;
-  padding: 0 10px;
+.search-box {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.search-box .sugg-list {
+  padding: 0 5px;
+}
+.search-box .sugg-item {
+  font-size: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid #efefef;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-.my-search-box {
-  height: 36px;
-  background-color: #fff;
-  width: 100%;
+.search-box .sugg-item .goods-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 3px;
+}
+.search-box .history-box {
+  padding: 0 5px;
+}
+.search-box .history-box .history-title {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  height: 40px;
+  font-size: 13px;
+  border-bottom: 1px solid #efefef;
 }
-.my-search-box .placeholder {
-  font-size: 15px;
-  margin-left: 5px;
+.search-box .history-box .history-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.search-box .history-box .history-list .uni-tag {
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
