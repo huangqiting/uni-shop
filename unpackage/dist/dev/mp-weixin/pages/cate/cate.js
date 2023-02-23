@@ -101,7 +101,7 @@ var components
 try {
   components = {
     mySearch: function () {
-      return __webpack_require__.e(/*! import() | components/my-search/my-search */ "components/my-search/my-search").then(__webpack_require__.bind(null, /*! @/components/my-search/my-search.vue */ 76))
+      return __webpack_require__.e(/*! import() | components/my-search/my-search */ "components/my-search/my-search").then(__webpack_require__.bind(null, /*! @/components/my-search/my-search.vue */ 84))
     },
   }
 } catch (e) {
@@ -215,7 +215,7 @@ var _default = {
     // 获取设备信息 加了Sync是同步
     var sysinfo = uni.getSystemInfoSync();
     // windowWidth 窗口的可用高度 = 屏幕高度 - navigationBar高度 - tabBar 高度
-    this.wh = sysinfo.windowHeight;
+    this.wh = sysinfo.windowHeight - 50;
     this.getCateList();
   },
   methods: {
@@ -265,6 +265,12 @@ var _default = {
     gotoGoodsList: function gotoGoodsList(item3) {
       uni.navigateTo({
         url: "/subpkg/goods_list/goods_list?cid=".concat(item3.cat_id)
+      });
+    },
+    // 跳转到分包的搜索页面
+    gotoSearch: function gotoSearch() {
+      uni.navigateTo({
+        url: '/subpkg/search/search'
       });
     }
   }

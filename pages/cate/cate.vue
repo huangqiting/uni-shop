@@ -1,7 +1,7 @@
 <template>
   <view>
     <!-- 搜索区域 -->
-    <my-search></my-search>
+    <my-search @click="gotoSearch"></my-search>
     <view class="scroll-view-container">
       <!-- 左侧滚动的区域 -->
       <scroll-view class="left-scroll-view" scroll-y="" :style="{ height: `${wh}px` }">
@@ -43,7 +43,7 @@ export default {
     // 获取设备信息 加了Sync是同步
     const sysinfo = uni.getSystemInfoSync();
     // windowWidth 窗口的可用高度 = 屏幕高度 - navigationBar高度 - tabBar 高度
-    this.wh = sysinfo.windowHeight;
+    this.wh = sysinfo.windowHeight - 50;
 
     this.getCateList();
   },
@@ -71,6 +71,12 @@ export default {
     gotoGoodsList(item3) {
       uni.navigateTo({
         url: `/subpkg/goods_list/goods_list?cid=${item3.cat_id}`
+      });
+    },
+    // 跳转到分包的搜索页面
+    gotoSearch() {
+      uni.navigateTo({
+        url: '/subpkg/search/search'
       });
     }
   }

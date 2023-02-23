@@ -54,4 +54,10 @@ image {
   display: flex;
   padding: 10rpx;
 }
+.search-box {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 
