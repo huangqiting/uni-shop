@@ -48,7 +48,7 @@ export default {
       4;
       this.goodsList.push(...data.message.goods);
       this.total = data.message.total;
-      console.log(data);
+      // console.log(data);
     },
     // 跳转商品详情
     gotoDetail(goods) {
