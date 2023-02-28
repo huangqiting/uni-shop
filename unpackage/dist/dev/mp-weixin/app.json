@@ -17,7 +17,7 @@
   ],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "优购",
+    "navigationBarTitleText": "微享购",
     "navigationBarBackgroundColor": "#c00000",
     "backgroundColor": "#F8F8F8"
   },
@@ -50,5 +50,8 @@
       }
     ]
   },
+  "requiredPrivateInfos": [
+    "chooseAddress"
+  ],
   "usingComponents": {}
 }

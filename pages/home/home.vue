@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import { $http } from '@escook/request-miniprogram';
 export default {
   data() {
     return {

@@ -2,6 +2,7 @@ import App from './App'
 
 // #ifndef VUE3
 import Vue from 'vue'
+import store from './store/index.js'
 Vue.config.productionTip = false
 import {
   $http
@@ -14,6 +15,7 @@ uni.$showMsg = function(title = '请求失败', duration = 1500) {
     icon: 'none'
   });
 }
+// $http.baseUrl = 'https://www.uinav.com'
 $http.baseUrl = 'https://api-hmugo-web.itheima.net'
 $http.beforeRequest = function() {
   uni.showLoading({
@@ -23,9 +25,16 @@ $http.beforeRequest = function() {
 $http.afterRequest = function() {
   uni.hideLoading()
 }
+
+// 全局混入购物车数量徽章
+import badgeMix from "@/mixins/tabbar-badge.js"
+Vue.mixin(badgeMix)
+
+
 App.mpType = 'app'
 const app = new Vue({
-  ...App
+  ...App,
+  store // 挂载store
 })
 app.$mount()
 // #endif

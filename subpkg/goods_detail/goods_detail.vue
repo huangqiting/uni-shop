@@ -2,7 +2,9 @@
   <view>
     <view class="goods-detail-container">
       <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" circular>
-        <swiper-item v-for="(item, index) of goods_info.pics"><image :src="item.pics_big" @click="previewImg(index)"></image></swiper-item>
+        <swiper-item v-for="(item, index) of goods_info.pics" :key="index">
+          <image :src="item.pics_big" @click="previewImg(index)"></image>
+        </swiper-item>
       </swiper>
       <!-- 商品信息区域 -->
       <view class="goods-info-box">
@@ -31,13 +33,24 @@
       <!-- buttonGroup 右侧按钮的配置项 -->
       <!-- click 左侧按钮的点击事件处理函数 -->
       <!-- buttonClick 右侧按钮的点击事件处理函数 -->
-      <uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick" @buttonClick="buttonClick" />
+      <uni-goods-nav
+        :fill="true"
+        :options="options"
+        :buttonGroup="buttonGroup"
+        @click="onClick"
+        @buttonClick="buttonClick"
+      />
     </view>
   </view>
 </template>
 
 <script>
+import { mapState, mapMutations, mapGetters } from 'vuex';
 export default {
+  computed: {
+    ...mapState('m_cart', []),
+    ...mapGetters('m_cart', ['cartTotal'])
+  },
   data() {
     return {
       // 商品详情对象
@@ -54,7 +67,7 @@ export default {
         {
           icon: 'cart',
           text: '购物车',
-          info: 2
+          info: 0
         }
       ],
       buttonGroup: [
@@ -72,20 +85,33 @@ export default {
     };
   },
   onLoad(options) {
-    console.log(options);
     // 获取传过来的id
     const goods_id = options.goods_id;
     this.getGoodsInfo(goods_id);
   },
+  watch: {
+    cartTotal: {
+      handler(newVal) {
+        // newVal就是购物车最新商品数量
+        // 找到购物车那个对象 找不到为undefined
+        const dataCart = this.options.find(item => item.text === '购物车');
+        if (dataCart) dataCart.info = newVal;
+      },
+      immediate: true // 页面加载执行一次,立即监听
+    }
+  },
   methods: {
+    // vuex 添加到购物车方法
+    ...mapMutations('m_cart', ['addToCart']),
     // 获取商品详情
     async getGoodsInfo(id) {
       const { data } = await uni.$http.get('/api/public/v1/goods/detail', { goods_id: id });
-      if (data.meta.status !== 200) return uni.$showMsg('获取商品详情失败！');
+      if (data.meta?.status !== 200) return uni.$showMsg('获取商品详情失败！');
       // 去除商品介绍图片上下的间隙 因为是图片是行内块元素 解决ios不支持webp格式
-      data.message.goods_introduce = data.message.goods_introduce.replace(/<img /g, '<img style="display:block;" ').replace(/webp/g, 'jpg');
+      data.message.goods_introduce = data.message.goods_introduce
+        .replace(/<img /g, '<img style="display:block;" ')
+        .replace(/webp/g, 'jpg');
       this.goods_info = data.message;
-      console.log(data);
     },
     // 预览轮播图
     previewImg(i) {
@@ -99,12 +125,30 @@ export default {
     },
     // 商品导航左侧按钮点击事件
     onClick(e) {
-      console.log(e);
+      // console.log(e);
       // 判断是否点击购物车 跳转到购物车页面
       if (e.content.text) {
         uni.switchTab({
           url: '/pages/cart/cart'
         });
+      }
+    },
+    // 商品导航右侧按钮点击事件
+    buttonClick(e) {
+      // console.log(e);
+      if (e.content.text === '加入购物车') {
+        // { goods_id, goods_name, goods_price, goods_count, goods_small_logo, goods_state }
+        const { goods_id, goods_name, goods_price, goods_small_logo } = this.goods_info;
+        const goods = {
+          goods_id,
+          goods_name,
+          goods_price,
+          goods_small_logo,
+          goods_count: 1,
+          goods_state: true
+        };
+        this.addToCart(goods);
+        uni.$showMsg('加入购物车成功');
       }
     }
   }

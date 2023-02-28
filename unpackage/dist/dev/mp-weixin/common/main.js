@@ -15,7 +15,9 @@ var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/run
 __webpack_require__(/*! uni-pages */ 25);
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 26));
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 24));
-var _requestMiniprogram = __webpack_require__(/*! @escook/request-miniprogram */ 32);
+var _index = _interopRequireDefault(__webpack_require__(/*! ./store/index.js */ 32));
+var _requestMiniprogram = __webpack_require__(/*! @escook/request-miniprogram */ 36);
+var _tabbarBadge = _interopRequireDefault(__webpack_require__(/*! @/mixins/tabbar-badge.js */ 37));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 // @ts-ignore
@@ -31,6 +33,7 @@ uni.$showMsg = function () {
     icon: 'none'
   });
 };
+// $http.baseUrl = 'https://www.uinav.com'
 _requestMiniprogram.$http.baseUrl = 'https://api-hmugo-web.itheima.net';
 _requestMiniprogram.$http.beforeRequest = function () {
   uni.showLoading({
@@ -40,8 +43,15 @@ _requestMiniprogram.$http.beforeRequest = function () {
 _requestMiniprogram.$http.afterRequest = function () {
   uni.hideLoading();
 };
+
+// 全局混入购物车数量徽章
+
+_vue.default.mixin(_tabbarBadge.default);
 _App.default.mpType = 'app';
-var app = new _vue.default(_objectSpread({}, _App.default));
+var app = new _vue.default(_objectSpread(_objectSpread({}, _App.default), {}, {
+  store: _index.default // 挂载store
+}));
+
 createApp(app).$mount();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
 
