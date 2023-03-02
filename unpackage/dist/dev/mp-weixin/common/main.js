@@ -35,10 +35,18 @@ uni.$showMsg = function () {
 };
 // $http.baseUrl = 'https://www.uinav.com'
 _requestMiniprogram.$http.baseUrl = 'https://api-hmugo-web.itheima.net';
-_requestMiniprogram.$http.beforeRequest = function () {
+_requestMiniprogram.$http.beforeRequest = function (opsions) {
   uni.showLoading({
     title: '加载中'
   });
+  // 判断是否是要token的接口 统一携带请求头
+  if (opsions.url.indexOf('/my/') !== -1 && _index.default.state.m_user.token) {
+    // console.log(opsions);
+    // console.log(store.state.m_user.token);
+    opsions.header = {
+      Authorization: _index.default.state.m_user.token
+    };
+  }
 };
 _requestMiniprogram.$http.afterRequest = function () {
   uni.hideLoading();

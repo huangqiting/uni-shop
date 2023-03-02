@@ -17,10 +17,18 @@ uni.$showMsg = function(title = '请求失败', duration = 1500) {
 }
 // $http.baseUrl = 'https://www.uinav.com'
 $http.baseUrl = 'https://api-hmugo-web.itheima.net'
-$http.beforeRequest = function() {
+$http.beforeRequest = function(opsions) {
   uni.showLoading({
     title: '加载中'
   })
+  // 判断是否是要token的接口 统一携带请求头
+  if (opsions.url.indexOf('/my/') !== -1 && store.state.m_user.token) {
+    // console.log(opsions);
+    // console.log(store.state.m_user.token);
+    opsions.header = {
+      Authorization: store.state.m_user.token
+    }
+  }
 }
 $http.afterRequest = function() {
   uni.hideLoading()

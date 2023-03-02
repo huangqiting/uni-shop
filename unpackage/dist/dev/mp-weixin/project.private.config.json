@@ -4,13 +4,13 @@
   "setting": {
     "compileHotReLoad": false
   },
-  "libVersion": "2.30.0",
+  "libVersion": "2.16.1",
   "condition": {
     "miniprogram": {
       "list": [
         {
           "name": "",
-          "pathName": "pages/cart/cart",
+          "pathName": "pages/my/my",
           "query": "",
           "launchMode": "default",
           "scene": null

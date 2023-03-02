@@ -3,7 +3,12 @@ export default {
   namespaced: true,
   state: () => ({
     // 收货地址
-    address: JSON.parse(uni.getStorageSync('address') || '{}')
+    address: JSON.parse(uni.getStorageSync('address') || '{}'),
+    token: uni.getStorageSync('token'),
+    // 用户信息
+    userInfo: JSON.parse(uni.getStorageSync('userInfo') || '{}'),
+    // 重定向obj对象
+    redirectInfo: null
   }),
   mutations: {
     updateAddress(state, address) {
@@ -14,6 +19,29 @@ export default {
     // 本地存储持久化
     saveAddressToStorage(state) {
       uni.setStorageSync('address', JSON.stringify(state.address))
+    },
+    // 更新用户信息
+    updateUserInfo(state, userInfo) {
+      state.userInfo = userInfo
+      this.commit('m_user/saveUserInfoToStorage')
+    },
+    // 用户信息持久化
+    saveUserInfoToStorage(state) {
+      uni.setStorageSync('userInfo', JSON.stringify(state.userInfo))
+    },
+    // 更新token
+    updateToken(state, token) {
+      state.token = token
+      this.commit('m_user/saveTokenToStorage')
+    },
+    // token持久化
+    saveTokenToStorage(state) {
+      uni.setStorageSync('token', state.token)
+    },
+    // 更新重定向对象
+    updateRedirectInfo(state, info) {
+      state.redirectInfo = info
+      console.log(info);
     }
   },
   getters: {

@@ -1,7 +1,7 @@
 <template>
   <view>
     <!-- 选择收货的盒子 -->
-    <view class="address-choose-box" v-if="JSON.stringify(address) === '{}'">
+    <view class="address-choose-box" v-if="!address.userName">
       <button type="primary" size="mini" class="btnChooseAddress" @click="chooseAddress">
         请选择收获地址+
       </button>

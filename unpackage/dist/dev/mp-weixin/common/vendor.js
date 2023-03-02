@@ -10945,7 +10945,12 @@ var _default = {
   state: function state() {
     return {
       // 收货地址
-      address: JSON.parse(uni.getStorageSync('address') || '{}')
+      address: JSON.parse(uni.getStorageSync('address') || '{}'),
+      token: uni.getStorageSync('token'),
+      // 用户信息
+      userInfo: JSON.parse(uni.getStorageSync('userInfo') || '{}'),
+      // 重定向obj对象
+      redirectInfo: null
     };
   },
   mutations: {
@@ -10957,6 +10962,29 @@ var _default = {
     // 本地存储持久化
     saveAddressToStorage: function saveAddressToStorage(state) {
       uni.setStorageSync('address', JSON.stringify(state.address));
+    },
+    // 更新用户信息
+    updateUserInfo: function updateUserInfo(state, userInfo) {
+      state.userInfo = userInfo;
+      this.commit('m_user/saveUserInfoToStorage');
+    },
+    // 用户信息持久化
+    saveUserInfoToStorage: function saveUserInfoToStorage(state) {
+      uni.setStorageSync('userInfo', JSON.stringify(state.userInfo));
+    },
+    // 更新token
+    updateToken: function updateToken(state, token) {
+      state.token = token;
+      this.commit('m_user/saveTokenToStorage');
+    },
+    // token持久化
+    saveTokenToStorage: function saveTokenToStorage(state) {
+      uni.setStorageSync('token', state.token);
+    },
+    // 更新重定向对象
+    updateRedirectInfo: function updateRedirectInfo(state, info) {
+      state.redirectInfo = info;
+      console.log(info);
     }
   },
   getters: {
@@ -11577,7 +11605,9 @@ module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exp
 /* 109 */,
 /* 110 */,
 /* 111 */,
-/* 112 */
+/* 112 */,
+/* 113 */,
+/* 114 */
 /*!*********************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \*********************************************************************************************/
@@ -12598,8 +12628,6 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 113 */,
-/* 114 */,
 /* 115 */,
 /* 116 */,
 /* 117 */,
@@ -12610,7 +12638,9 @@ exports.default = _default;
 /* 122 */,
 /* 123 */,
 /* 124 */,
-/* 125 */
+/* 125 */,
+/* 126 */,
+/* 127 */
 /*!****************************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-swipe-action/components/uni-swipe-action-item/mpwxs.js ***!
   \****************************************************************************************************************/
@@ -12687,7 +12717,7 @@ var _default = mpMixins;
 exports.default = _default;
 
 /***/ }),
-/* 126 */
+/* 128 */
 /*!*******************************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-swipe-action/components/uni-swipe-action-item/bindingx.js ***!
   \*******************************************************************************************************************/
@@ -12706,7 +12736,7 @@ var _default = bindIngXMixins;
 exports.default = _default;
 
 /***/ }),
-/* 127 */
+/* 129 */
 /*!******************************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-swipe-action/components/uni-swipe-action-item/mpother.js ***!
   \******************************************************************************************************************/
@@ -12725,8 +12755,6 @@ var _default = otherMixins;
 exports.default = _default;
 
 /***/ }),
-/* 128 */,
-/* 129 */,
 /* 130 */,
 /* 131 */,
 /* 132 */,
@@ -12748,7 +12776,23 @@ exports.default = _default;
 /* 148 */,
 /* 149 */,
 /* 150 */,
-/* 151 */
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */
 /*!**********************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-goods-nav/components/uni-goods-nav/i18n/index.js ***!
   \**********************************************************************************************************/
@@ -12763,9 +12807,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 152));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 153));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 154));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 168));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 169));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 170));
 var _default = {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -12774,7 +12818,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 152 */
+/* 168 */
 /*!*********************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-goods-nav/components/uni-goods-nav/i18n/en.json ***!
   \*********************************************************************************************************/
@@ -12784,7 +12828,7 @@ exports.default = _default;
 module.exports = JSON.parse("{\"uni-goods-nav.options.shop\":\"shop\",\"uni-goods-nav.options.cart\":\"cart\",\"uni-goods-nav.buttonGroup.addToCart\":\"add to cart\",\"uni-goods-nav.buttonGroup.buyNow\":\"buy now\"}");
 
 /***/ }),
-/* 153 */
+/* 169 */
 /*!**************************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-goods-nav/components/uni-goods-nav/i18n/zh-Hans.json ***!
   \**************************************************************************************************************/
@@ -12794,7 +12838,7 @@ module.exports = JSON.parse("{\"uni-goods-nav.options.shop\":\"shop\",\"uni-good
 module.exports = JSON.parse("{\"uni-goods-nav.options.shop\":\"店铺\",\"uni-goods-nav.options.cart\":\"购物车\",\"uni-goods-nav.buttonGroup.addToCart\":\"加入购物车\",\"uni-goods-nav.buttonGroup.buyNow\":\"立即购买\"}");
 
 /***/ }),
-/* 154 */
+/* 170 */
 /*!**************************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-goods-nav/components/uni-goods-nav/i18n/zh-Hant.json ***!
   \**************************************************************************************************************/
@@ -12804,14 +12848,14 @@ module.exports = JSON.parse("{\"uni-goods-nav.options.shop\":\"店铺\",\"uni-go
 module.exports = JSON.parse("{\"uni-goods-nav.options.shop\":\"店鋪\",\"uni-goods-nav.options.cart\":\"購物車\",\"uni-goods-nav.buttonGroup.addToCart\":\"加入購物車\",\"uni-goods-nav.buttonGroup.buyNow\":\"立即購買\"}");
 
 /***/ }),
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */
 /*!************************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-search-bar/components/uni-search-bar/i18n/index.js ***!
   \************************************************************************************************************/
@@ -12826,9 +12870,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 163));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 164));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 165));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 179));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 180));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 181));
 var _default = {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -12837,7 +12881,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 163 */
+/* 179 */
 /*!***********************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-search-bar/components/uni-search-bar/i18n/en.json ***!
   \***********************************************************************************************************/
@@ -12847,7 +12891,7 @@ exports.default = _default;
 module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"Search enter content\"}");
 
 /***/ }),
-/* 164 */
+/* 180 */
 /*!****************************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
   \****************************************************************************************************************/
@@ -12857,7 +12901,7 @@ module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-
 module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"请输入搜索内容\"}");
 
 /***/ }),
-/* 165 */
+/* 181 */
 /*!****************************************************************************************************************!*\
   !*** D:/黑马资料/14-微信小程序资料/我的小程序/uni-shop/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
   \****************************************************************************************************************/
